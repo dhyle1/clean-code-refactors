@@ -8,6 +8,10 @@ class Playlist:
         self._songs = []  # A list to store song objects
         self._name = list_name
 
+    def _extract_title_artist(self, song):
+        title, artist = song.string_to_file().strip().split(';', maxsplit=1)
+        return title, artist
+
     def load_from_file(self):
         # Reads songs from a file and adds them to the playlist
         f = open(self._name + ".txt", "r")  # Opens the file for reading
@@ -25,18 +29,13 @@ class Playlist:
 
     def remove_song(self, song):
         # Removes a song from the playlist
-        converted = song.string_to_file()
-        split = converted.strip().split(';')
-        title = split[0]
-        artist = split[1]
+        title, artist = self._extract_title_artist(song)
 
         for x in self._songs:
-            converted1 = x.string_to_file()
-            split1 = converted1.strip().split(';')
-            title1 = split1[0]
-            artist1 = split1[1]
+            title1, artist1 = self._extract_title_artist(x)
             if title == title1 and artist == artist1:
                 self._songs.remove(x)  # Removes the song object from the playlist
+                return
 
     def play_all(self):
         # Plays all songs in the playlist
