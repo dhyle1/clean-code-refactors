@@ -11,7 +11,7 @@ Improve structure, readability, and duplication while preserving original behavi
 - Redundant comments describing obvious code behavior.
 
 ## Refactoring Steps
-- Introduced `_extract_title_artist` to centralize parsing logic.
+- Introduced `DELIM` and `_to_line()` to centralize the file-line representation of a song.
 - Simplified `remove_song` to remove the first matching element safely using index-based removal.
 - Replaced manual file handling with context managers (`with open(...)`).
 - Improved naming to avoid shadowing and clarify intent.
