@@ -14,14 +14,10 @@ class Playlist:
 
     def load_from_file(self):
         # Reads songs from a file and adds them to the playlist
-        f = open(self._name + ".txt", "r")  # Opens the file for reading
-        for line in f:
-            all_data = line.strip().split(';')  # Split the line into title and artist
-            title = all_data[0]
-            artist = all_data[1]
-            song = song(title, artist)  # Creates a song object
-            self._songs.append(song)  # Adds the song object to the playlist
-        f.close()  # Closes the file
+        with open(self._name + ".txt", "r") as f:
+            for line in f:
+                title, artist = line.strip().split(';', maxsplit=1)
+                self._songs.append(song(title, artist))
 
     def add_song(self, new_song):
         # Adds a song to the playlist
