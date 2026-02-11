@@ -21,8 +21,13 @@ Improve structure, readability, and duplication while preserving original behavi
 ## Result
 The class now has:
 - Reduced duplication
-- Clearer separation of responsibilities
+- Clearer intent and naming
 - Safer file handling
 - More readable iteration and comparison logic
 
 All changes preserve external behavior while improving maintainability.
+
+## Tradeoffs & Future Considerations
+- The class still mixes playlist behavior with file persistence. In a larger system, separating storage from domain logic would improve testability and flexibility.
+- Songs are represented as delimited strings in the file format. Introducing a structured `Song` model (e.g., a dataclass) would further reduce parsing concerns.
+- Input validation for malformed file lines is minimal; behavior was intentionally preserved rather than expanded.
