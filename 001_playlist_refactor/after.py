@@ -61,12 +61,11 @@ class Playlist:
 
     def save_to_file(self):
         # Writes the playlist to a file and saves it to a file
-        f = open(self._name + ".txt", "w")  # Opens the file for writing
-
-        for song in self._songs:
-            title, artist = self._extract_title_artist(song)
-            f.write(f'{title};{artist}\n')  # Writes the song to the file
-        f.close()  # Closes the file
+        with open(self._name + ".txt", "w") as f:
+            for song in self._songs:
+                title, artist = self._extract_title_artist(song)
+                f.write(f'{title};{artist}\n')
+        
 
 
 
