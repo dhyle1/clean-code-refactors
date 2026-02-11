@@ -64,11 +64,8 @@ class Playlist:
         f = open(self._name + ".txt", "w")  # Opens the file for writing
 
         for song in self._songs:
-            converted = song.string_to_file()
-            split = converted.strip().split(';')
-            title_of_song = split[0]
-            artist_of_song = split[1]
-            f.write(f'{title_of_song};{artist_of_song}\n')  # Writes the song to the file
+            title, artist = self._extract_title_artist(song)
+            f.write(f'{title};{artist}\n')  # Writes the song to the file
         f.close()  # Closes the file
 
 
