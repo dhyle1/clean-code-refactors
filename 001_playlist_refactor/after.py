@@ -21,10 +21,10 @@ class Playlist:
     def remove_song(self, target_song):
         title, artist = self._extract_title_artist(target_song)
 
-        for song_obj in self._songs:
+        for i, song_obj in enumerate(self._songs):
             candidate_title, candidate_artist = self._extract_title_artist(song_obj)
             if title == candidate_title and artist == candidate_artist:
-                self._songs.remove(song_obj)
+                self._songs.pop(i)
                 return
 
     def play_all(self):
