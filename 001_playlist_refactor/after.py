@@ -29,7 +29,7 @@ class Playlist:
 
     def play_all(self):
         for song_obj in self._songs:
-            song_obj.play() 
+            song_obj.play()
 
     def find_song_by_title(self, title):
         for song_obj in self._songs:
