@@ -1,29 +1,31 @@
 from song import song
 
+DELIM = ';'
+
 class Playlist:
     def __init__(self, list_name):
         self._songs = []
         self._name = list_name
 
-    def _extract_title_artist(self, song_obj):
-        title, artist = song_obj.string_to_file().strip().split(';', maxsplit=1)
-        return title, artist
+    def _to_line(self, song_obj):
+        # Returns the canonical file-line representation of a song.
+        # Used to keep save/remove logic consistent with file format.
+        return song_obj.string_to_file().strip()
 
     def load_from_file(self):
         with open(self._name + '.txt', 'r') as f:
             for line in f:
-                title, artist = line.strip().split(';', maxsplit=1)
+                title, artist = line.strip().split(DELIM, maxsplit=1)
                 self._songs.append(song(title, artist))
 
     def add_song(self, new_song):
         self._songs.append(new_song)
 
     def remove_song(self, target_song):
-        title, artist = self._extract_title_artist(target_song)
+        target_line = self._to_line(target_song)
 
         for i, song_obj in enumerate(self._songs):
-            candidate_title, candidate_artist = self._extract_title_artist(song_obj)
-            if title == candidate_title and artist == candidate_artist:
+            if self._to_line(song_obj) == target_line:
                 self._songs.pop(i)
                 return
 
@@ -47,6 +49,5 @@ class Playlist:
     def save_to_file(self):
         with open(self._name + '.txt', 'w') as f:
             for song_obj in self._songs:
-                title, artist = self._extract_title_artist(song_obj)
-                f.write(f'{title};{artist}\n')
+                f.write(self._to_line(song_obj) + '\n')
         
