@@ -10,7 +10,7 @@ class Playlist:
         return title, artist
 
     def load_from_file(self):
-        with open(self._name + ".txt", "r") as f:
+        with open(self._name + '.txt', 'r') as f:
             for line in f:
                 title, artist = line.strip().split(';', maxsplit=1)
                 self._songs.append(song(title, artist))
@@ -38,24 +38,15 @@ class Playlist:
         return None
 
     def get_songs_by_artist(self, artist_name):
-        songs_by_artist = []
-
-        for song_obj in self._songs:
-            if song_obj.check_artist(artist_name):
-                songs_by_artist.append(song_obj)
-
-        return songs_by_artist
+        return [
+            song_obj
+            for song_obj in self._songs
+            if song_obj.check_artist(artist_name)
+        ]
 
     def save_to_file(self):
-        with open(self._name + ".txt", "w") as f:
+        with open(self._name + '.txt', 'w') as f:
             for song_obj in self._songs:
                 title, artist = self._extract_title_artist(song_obj)
                 f.write(f'{title};{artist}\n')
         
-
-
-
-
-
-
-
